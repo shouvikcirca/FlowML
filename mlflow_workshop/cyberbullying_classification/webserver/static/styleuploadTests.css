@@ -1,0 +1,222 @@
+.grid-container
+{
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    grid-auto-rows: (150px, 150px);
+
+}
+
+.grid-item-3
+{
+    grid-column-start: 1;
+    grid-column-end:3;
+}
+
+.grid-item-4
+{
+    grid-column-start: 1;
+    grid-column-end:3;
+}
+
+
+
+.recentOrdersFileUpload
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper
+{
+    width: 430px;
+    padding:30px;
+    /* background: #11101d; */
+    /* color: white; */
+    border-radius: 5px;
+}
+
+.wrapper header
+{
+    /* color: white; */
+    font-size: 27px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.wrapper form
+{
+    height: 167px;
+    display: flex;
+    margin:30px 0;
+    cursor:pointer;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 5px;
+    border:2px dashed #2666cf;
+    
+}
+
+form :where(i, p)
+{
+    color:#11101d;
+
+}
+
+form i
+{
+    font-size: 50px;
+
+}
+
+form p
+{
+    font-size:16px;
+    margin-top:15px;
+
+}
+
+
+section .row
+{
+    /* background: white; */
+    margin-bottom: 10px;
+    list-style: none;
+    padding: 15px 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items:center;
+    justify-content: space-between;    
+}
+
+
+section .row i
+{
+    font-size: 30px;
+    color: #11101d;
+}
+
+section .details span
+{
+    font-size: 14px;
+
+}
+
+
+.borderify
+{
+    border:1px solid #11101d;
+}
+
+.progress-area
+{
+    width:860px;
+    /* z-index:1;
+    position:absolute; */
+    /* margin:0% 12%; */
+    /* width:inherit; */
+    /* max-height: 230px; */
+    overflow-y: scroll;
+    /* margin-left:-150px; */
+}
+
+.progress-area .row .content
+{
+    position:absolute;
+    margin-left: 10px;
+    /* position:fixed; */
+    /* margin:0% 40%; */
+    /* width:45%; */
+    /* margin-left:15px; */
+    
+}
+
+.progress-area .details
+{
+    display:flex;
+    align-items: center;
+    /* margin-bottom: 7px; */
+    /* justify-content: space-between; */
+    /* flex-direction:column; */
+    /* margin-left: -435px; */
+}
+
+
+.progress-area .progress-bar
+{
+    height:6px;
+    width:100%;
+    /* background: #fff; */
+    margin-bottom: 4px;
+    border-radius: 30px;
+    /* margin-left: -370px; */
+}
+
+
+
+.progress-bar .progress
+{
+    height:100%;
+    width:50%; /* change progres in progress bar*/
+    background:  #11101d;
+    border-radius: inherit;
+
+}
+
+.uploaded-area
+{
+    
+    position:absolute;
+    width: 860px;
+    /* margin:0% 20%; */
+    /* width:inherit; */
+    max-height: 230px;
+    overflow-y: scroll;
+}
+
+
+.uploaded-area.on-progress
+{
+    /* max-height:150px; */
+
+}
+
+
+
+
+/* .uploaded-area::-webkit-scrollbar
+{
+    width:0px;
+
+} */
+
+.uploaded-area .row .content
+{
+    display: flex;
+    align-items: center;
+
+}
+
+.uploaded-area .row .details
+{
+    display: flex;
+    flex-direction: column;
+    /* margin-left:1px; */
+
+}
+
+
+.uploaded-area .details .size
+{
+    font-size:11px;
+    color: #11101d;
+}
+
+.uploaded-area .fa-check
+{
+    color: #11101d;
+    font-size: 16px;
+}
+
+

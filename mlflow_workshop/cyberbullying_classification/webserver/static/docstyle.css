@@ -1,0 +1,31 @@
+html
+{
+    scroll-behavior:smooth;
+}
+
+body{
+    background-color: #f6f6f6;
+}
+
+.main_doc
+{
+    margin-left:1000px;
+}
+
+h1{
+    position: relative;
+    padding:30px;
+    left:-45px;
+}
+
+
+.main-section p
+{
+    position: relative;
+    left:-10px;
+}
+
+
+ol{
+    line-height: 1.5em;
+}

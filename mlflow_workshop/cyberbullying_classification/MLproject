@@ -1,0 +1,19 @@
+name: tensorflow-example
+
+entry_points:
+  tuning:
+    command: "python hyperparameter_tuning.py"
+
+  ht:
+    parameters:
+      learning_rate: {type: float, default: 0.1}
+      vocab_length: {type: int, default: 100}
+      seq_padding_style: {type: string, default: "post"}
+      seq_truncating_style: {type: string, default:"post"}
+      embedding_dim: {type:int, default: 100}
+      bs: {type: int, default: 64}
+      epochs: {type: int, default: 5}
+      max_length: {type:int, default:50}
+      run_id : {type:string }
+    command: "python baseRunner.py --learning-rate {learning_rate} --vocab-length {vocab_length} --seq-padding-style {seq_padding_style} --seq-truncating-style {seq_truncating_style} --embedding-dim {embedding_dim} --bs {bs} --epochs {epochs} --max-length {max_length} --run-id {run_id}"
+

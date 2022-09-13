@@ -1,0 +1,7 @@
+name: tensorflow-example
+
+entry_points:
+  rf:
+    command: "python baseRunner.py"
+
+

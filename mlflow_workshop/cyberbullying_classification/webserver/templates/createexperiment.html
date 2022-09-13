@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' >
+    
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/uploadTestsModal.css">
+    <link rel="stylesheet" href="/static/uploadTestsModal2.css">
+    <link rel="stylesheet" href="/static/uploadTestsModalTable.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Document</title>
+</head>
+<body style="background: #86C6F4;">
+<div class="container">
+    <div class="sidebar close">
+        <div class="logo-details">
+            <i class='bx bx-bug'></i>
+            <span class="logo_name"> Menu</span>
+        </div>
+        <ul class="nav-links">
+            
+            <li style="padding:3px;pointer-events:none">
+                <a href='#'>
+                    <!-- <i class='bx bx-grid-alt'></i> -->
+                    <div style="width:80px;height: 1px;background-color: white;"></div>
+                    <span class="link_name">Experiments</span>
+                    <div style="width:110px;height: 1px;background-color: white;"></div>
+                </a>
+            </li>
+
+            <li>
+                <div class="icon-link">
+                    <a href='/uploadTests' onclick="">
+                        <i class='bx bx-upload' ></i>
+                        <span class="link_name">Create</span>
+                    </a>
+                </div>
+            </li>
+            
+            
+            
+            
+            
+            <li>
+                <a href='/'>
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="link_name">Dashboard</span>
+                </a>
+            </li>
+
+
+            <li style="padding:3px;pointer-events:none">
+                <a href='#'>
+                    <!-- <i class='bx bx-grid-alt'></i> -->
+                    <div style="width:50px;height: 1px;background-color: white;"></div>
+                    <span class="link_name">Tests</span>
+                    <div style="width:130px;height: 1px;background-color: white;"></div>
+                </a>
+            </li>
+
+
+            <li>
+                <div class="icon-link">
+                    <a href='#' onclick="showSubmenutestapis()">
+                        <i class='bx bxs-analyse'></i>
+                        <span class="link_name" >Analyze</span>
+                    </a>
+                    <i class="bx bxs-chevron-down"></i>
+                </div>
+                <ul class="sub-menu testapis">
+                  
+
+                </ul>
+            </li>
+           
+            <li>
+                <div class="icon-link">
+                    <a href='#' onclick="showSubmenuaddtests()">
+                        <i class='bx bx-add-to-queue' ></i>
+                        <span class="link_name">Add</span>
+                    </a>
+                    <i class="bx bxs-chevron-down"></i>
+                </div>
+                <ul class="sub-menu addtests">
+                   
+
+                </ul>
+            </li>
+            <li>
+                <div class="icon-link">
+                    <a href='#' onclick="showSubmenuruntests()">
+                        <i class='bx bx-clipboard'></i>
+                        <span class="link_name">Run</span>
+                    </a>
+                    <i class="bx bxs-chevron-down"></i>
+                </div>
+                <ul class="sub-menu runtests">
+                    
+
+                </ul>
+            </li>
+
+
+            <li>
+                <div class="icon-link">
+                    <a href='/getReportsPage' onclick="">
+                        <i class='bx bxs-report'></i>
+                        <span class="link_name">Run All</span>
+                    </a>
+                </div>
+                <ul class="sub-menu runtests">
+                
+
+                </ul>
+            </li>
+
+
+            <li style="padding:3px;pointer-events:none">
+                <a href='#'>
+                    <!-- <i class='bx bx-grid-alt'></i> -->
+                    <div style="width:50px;height: 1px;background-color: white;"></div>
+                    <span class="link_name">APIs</span>
+                    <div style="width:130px;height: 1px;background-color: white;"></div>
+                </a>
+            </li>
+
+
+
+
+            <li>
+                <div class="icon-link">
+                    <a href='/getCreateAPIPage' onclick="">
+                        <i class='bx bx-screenshot' ></i>
+                        <span class="link_name">Create</span>
+                    </a>
+                </div>
+                <ul class="sub-menu runtests">
+
+                </ul>
+            </li>
+
+
+            <li>
+                <div class="icon-link">
+                    <a href='/deleteApi' onclick="">
+                        <i class='bx bx-border-radius'></i>
+                        <span class="link_name">Delete</span>
+                    </a>
+                </div>
+                <ul class="sub-menu runtests">
+
+                </ul>
+            </li>
+
+            <li>
+                <a href='#'>
+                    <!-- <i class='bx bx-grid-alt'></i> -->
+                    <div style="width:230px;height: 1px;background-color: white;"></div>
+                    <!-- <span class="link_name">APIs</span> -->
+                    <!-- <div style="width:90px;height: 1px;background-color: white;"></div> -->
+                </a>
+            </li>
+            
+
+
+
+
+                <li>
+                    <div class="icon-link">
+                        <a href='/getHistoryPage' onclick="">
+                            <i class='bx bx-history'></i>
+                            <span class="link_name">History</span>
+                        </a>
+                    </div>
+                    <ul class="sub-menu runtests">
+                      
+    
+                    </ul>
+                </li>
+
+
+                <li>
+                    <div class="icon-link">
+                        
+                        <a href='/getTutorials' > 
+                            <i class='bx bx-video-recording'></i>
+                            <span class="link_name">Tutorials</span>
+                        </a>
+                    </div>
+                    
+                </li>
+
+
+            <li>
+                <div class="profile-details">
+                    <div class="profile-content">
+                        <img src="/static/profile.jpg" alt="profile">
+                    </div>
+            
+                    <div class="name-job">
+                        <div class="profile_name">
+                            Shouvik Sarkar
+                        </div>
+                    </div>
+                    <!-- <i class='bx bx-log-out' ></i> -->
+                </div>
+            </li>
+    </ul>
+    </div>
+
+    <!-- main -->
+    <div class = 'main'>
+        <div class= "topbar">
+            <div class="toggle">
+                <!-- <i class='bx bx-menu'></i> -->
+            </div>
+        </div>
+        <!-- cards -->
+        <!-- <div class="cardBox"> -->
+        <!-- </div> -->
+
+
+        
+        <!-- Individual APIs -->
+        <div class="details">
+            <div class="recentOrdersOne" style="background: white;border-radius: 3px;">
+                <div class="cardHeader">
+                    <h2 id='endpointToHit'>
+                        <!-- <%= resourceendpoint[0].toUpperCase() + resourceendpoint.slice(1,resourceendpoint.length) %> -->
+                    </h2> &nbsp
+                    <!-- <a href='#' class="btn" onclick="addTestCases()" style="padding: 10px;border-radius: 3px;">Add Test Case</a>&nbsp -->
+                    <!-- <a href='#' class="btn" onclick="getCsvBody()" style="padding: 10px;border-radius: 3px;">Download Existing</a> -->
+                    <label>
+                        Experiment Name
+                        <input type="text" id="search" placeholder="Type here...">
+                        <!-- <i class='bx bx-search-alt' ></i> -->
+                    </label>&nbsp &nbsp
+                    <label>
+                        Task
+                        <select name="" id="taskSelect">
+                            <optgroup>
+                                <option value="Select">Select Type</option>
+                                <option value="Text Classification">Text Classification</option>
+                                <option value="Time Series Prediction">Time Series Prediction</option>
+                            </optgroup>
+                        </select>
+                        <!-- <i class='bx bx-search-alt' ></i> -->
+                    </label>&nbsp &nbsp
+                    
+                    <label >
+                        <input style="width:40px;" type="button" value="Next" onclick="showUploadDataSection()">
+                    </label>&nbsp
+                    
+                    
+                   
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="details uploadDataSection">
+            <div class="recentOrdersOne" style="background: white;border-radius: 3px;">
+                <div class="cardHeader">
+                    <h2 id='endpointToHit'>
+                        <!-- <%= resourceendpoint[0].toUpperCase() + resourceendpoint.slice(1,resourceendpoint.length) %> -->
+                    </h2> &nbsp
+                    <!-- <a href='#' class="btn" onclick="addTestCases()" style="padding: 10px;border-radius: 3px;">Add Test Case</a>&nbsp -->
+                    <!-- <a href='#' class="btn" onclick="getCsvBody()" style="padding: 10px;border-radius: 3px;">Download Existing</a> -->
+                </div>
+
+                <label>
+                        <a href="#" onclick="">
+                        <!-- <i class="bx bx-upload"></i> -->
+                        <form action="#" >
+                            <input type="file" name='uploadFiles' class='file-input'  hidden>
+                            <i class="fas fa-cloud-upload-alt"> Upload Data</i>
+                        </form>
+                    </a>
+                    <!-- <i class='bx bx-search-alt' ></i> -->
+                </label>
+
+
+
+            </div>
+        </div>
+
+        <div id="simpleModal" class="modal">
+            <div class="modal-content" >
+                <span class="closeBtn">&times;</span>
+               
+                
+               
+                
+                
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+</div>
+
+<script>
+    //MenuToggle
+    let toggle = document.querySelector('.toggle');
+    let sidebar = document.querySelector('.sidebar');
+    let main = document.querySelector('.main');
+    const form = document.querySelector("form");
+    const fileInput = form.querySelector('.file-input')
+
+    const uploadFile = name => {
+        console.log('Upload File fucntion working');
+    };
+
+    form.addEventListener("click", () => {
+        fileInput.click();
+    })
+
+
+    let task = document.getElementById('taskSelect')
+    task.addEventListener('change', () => {
+        
+        console.log(task.value)
+    })
+
+    class hparamRenderer
+    {
+        constructor()
+        {}
+
+        floatType()
+        {
+                return `
+                From 
+                <input type='number' />
+                To
+                <input type='number' />
+                `
+        }
+    }
+
+
+
+    const showUploadDataSection = () => {
+        document.querySelector('.uploadDataSection').style.display='block';
+        
+        testCaseBody = {
+            experimentname: document.getElementById('search').value,
+            experimenttype: document.getElementById('taskSelect').value
+        }
+        
+        fetch('http://localhost:8000/experimentData',{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(testCaseBody)
+        })
+        .then(response => response.json())
+        .then(data => {
+
+                obj = hparamRenderer()
+                for(let i=0;i<data.length;i++)
+                {
+                    
+                }
+                let dataToRender = ''
+
+        })
+    }
+
+
+
+
+    async function getapis() {
+        return await fetch('http://localhost:3000/molesummaryendpoint?filter[fields][apiName]=true')
+        .then(response => response.json())
+        .then(data => {
+            return data;
+        })
+    }
+
+
+    const showSubmenutestapis = () => {
+
+
+let data = getapis().then(datum => {
+    // console.log(datum); 
+    let sidebarapinames = '';
+
+    for(let i=0;i<datum.length;i++)
+    {
+        sidebarapinames+=`<li><a class="link_name" href='/getResourcePage/${datum[i]['apiName']}'>${datum[i]['apiName'][0].toUpperCase() + datum[i]['apiName'].slice(1,datum[i]['apiName'].length)}</a></li>`
+    }
+    
+    // console.log(sidebarapinames);
+
+    
+    let submenu = document.querySelector('.testapis')
+    if(submenu.style.display === "none" )
+    {
+        submenu.style.display = "block";
+        document.querySelector('.testapis').innerHTML = sidebarapinames.toString();
+    }
+    else
+    {
+        document.querySelector('.testapis').innerHTML = '';
+        submenu.style.display = "none";
+    }
+  
+})
+ 
+}
+
+    
+    const showSubmenuaddtests = () => {
+        let data = getapis().then(datum => {
+            // console.log(datum); 
+            let sidebarapinames = '';
+
+            for(let i=0;i<datum.length;i++)
+            {
+                sidebarapinames+=`<li><a class="link_name" href='/getAddResourcePage/${datum[i]['apiName']}'>${datum[i]['apiName'][0].toUpperCase() + datum[i]['apiName'].slice(1,datum[i]['apiName'].length)}</a></li>`
+            }
+            
+            
+            // console.log(sidebarapinames);
+
+            
+            let submenu = document.querySelector('.addtests')
+            if(submenu.style.display === "none" )
+            {
+                submenu.style.display = "block";
+                document.querySelector('.addtests').innerHTML = sidebarapinames.toString();
+            }
+            else
+            {
+                document.querySelector('.addtests').innerHTML = '';
+                submenu.style.display = "none";
+            }
+          
+        })
+        
+    }
+
+    const showSubmenuruntests = () => {
+        let data = getapis().then(datum => {
+            // console.log(datum); 
+            let sidebarapinames = '';
+
+            for(let i=0;i<datum.length;i++)
+            {
+                sidebarapinames+=`<li><a class="link_name" href='/getRunResourcePage/${datum[i]['apiName']}'>${datum[i]['apiName'][0].toUpperCase() + datum[i]['apiName'].slice(1,datum[i]['apiName'].length)}</a></li>`
+            }
+            
+            
+            // console.log(sidebarapinames);
+
+            
+            let submenu = document.querySelector('.runtests')
+            if(submenu.style.display === "none" )
+            {
+                submenu.style.display = "block";
+                document.querySelector('.runtests').innerHTML = sidebarapinames.toString();
+            }
+            else
+            {
+                document.querySelector('.runtests').innerHTML = '';
+                submenu.style.display = "none";
+            }
+          
+        })
+        
+    }
+
+
+
+    const prettyJson = (object) => {
+         try {
+            return JSON.stringify(object).split(',').join(',<br>').replace('{','<br>').replace('}','');
+        } 
+        catch (error) {
+            console.log('error parsing json')
+            return object
+        }
+    }
+
+ 
+
+
+    const plusTestCase = (idName) => {
+        // console.log(idName);
+
+        let elementNumber = idName.split('_')[1];
+        // let tcid = document.getElementById('mtcid_'+ elementNumber);
+        let description = document.getElementById('desc_'+ elementNumber); 
+        let reqBody = document.getElementById('req_'+ elementNumber); 
+        // let sp = document.getElementById('selectpicker_'+ elementNumber);
+        let sp = document.getElementById('selectpicker_'+ elementNumber);
+
+        let eptohit = document.getElementById('endpointToHit').innerText.trim();
+        eptohit = eptohit.toLowerCase();
+
+        let testCaseBody = {
+            description: description.value,
+            reqBody: reqBody.value,
+            // responseBody: sp.options[sp.value].text,
+            responseBody: sp.value,
+            apiName: eptohit
+            // testCaseId: tcid.value
+        }
+
+        fetch('http://localhost:3001/addNewCases',{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(testCaseBody)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if(data.message === 'Test Case Inserted')
+            {
+                // document.getElementById('mtcid_'+ elementNumber).disabled = true;
+                document.getElementById('desc_'+ elementNumber).disabled = true;
+                document.getElementById('req_'+ elementNumber).disabled = true;
+                document.getElementById('selectpicker_'+ elementNumber).disabled = true;
+            }
+        })
+        
+    }
+
+
+
+    let numberOfNodes = 0;
+    let numberOfKVPairs = 0;
+
+    // Adding a row in main screen 
+    const addTestCases = () => {
+
+        numberOfNodes+=1;
+
+        let listOfNodes = [...document.querySelectorAll('.inputRows')];
+
+        // let listOfTestCaseIds = [...document.getElementsByClassName('manualtestcaseids')];
+        let listOfDescriptions = [...document.getElementsByClassName('descriptions')];
+        let listOfRequests = [...document.getElementsByClassName('requestbodies')];
+        let listOfErs = [...document.getElementsByClassName('expectedresponses')];
+
+        
+        let renderedContent = '';
+
+        for(let i=0;i<listOfNodes.length;i++)
+        {
+            renderedContent+=("<tr class='inputRows'>"+ listOfNodes[i].innerHTML.toString() +"</tr>")
+        }
+
+
+        
+        let eptohit = document.getElementById('endpointToHit').innerText.trim();
+        eptohit = eptohit.toLowerCase();
+        // console.log(`getResponseList/${apiNameToLowerCase[eptohit]}`)
+
+        // <td ><input class="manualtestcaseids" id="mtcid_${numberOfNodes}" type="text" style="width:50px;" /></td>
+        renderedContent+= `<tr class="inputRows">
+                        <td ><input class="descriptions" id="desc_${numberOfNodes}" type="text" style="width:300px;" /></td>
+                        <td id="requestColumn_${numberOfNodes}"><a id="requestColumnBtn_${numberOfNodes}" href='#' class="btn" onClick="displayModal(this.getAttribute('id'))" style="color:white;border:1px solid white;background:#141E27;padding: 10px;border-radius: 7px;">Add Request</a></td>
+                        <td id="responseColumn_${numberOfNodes}"> <a href='#' id="responseColumnBtn_${numberOfNodes}" class="btn" onClick="displayModal(this.getAttribute('id'))" style="color:white;border:1px solid white;background:#141E27;padding: 10px;border-radius: 7px;">Add Response</a></td>
+                        <td id="headerColumn_${numberOfNodes}"> <a href='#' id="headerColumnBtn_${numberOfNodes}" class="btn" onClick="displayModal(this.getAttribute('id'))" style="color:white;border:1px solid white;background:#141E27;padding: 10px;border-radius: 7px;">Add Headers</a></td>`;
+                        
+            
+        renderedContent+=`<td id='plus_${numberOfNodes}'  style="font-size:22px;" onClick="plusTestCase(this.getAttribute('id'))"><i class='bx bxs-save' ></i></td>`; // Button for inserting test case
+        renderedContent+=`<td id='delete_${numberOfNodes}' style="font-size:22px;" onClick="deleteTestCase(this.getAttribute('id'))"><i class='bx bx-x-circle'></i></td></tr>`; // Button for deleting test case
+
+            // console.log(renderedContent)
+        document.querySelector('tbody').innerHTML = renderedContent;
+
+
+    
+        let newListOfDescriptions = [...document.getElementsByClassName('descriptions')]
+        for(let i=0;i<listOfDescriptions.length;i++)
+        {
+            newListOfDescriptions[i].value = listOfDescriptions[i].value;
+        }
+
+        let newListOfRequests = [...document.getElementsByClassName('requestbodies')]
+        for(let i=0;i<listOfRequests.length;i++)
+        {
+            newListOfRequests[i].value = listOfRequests[i].value;
+        }
+
+        let newListOfErs = [...document.getElementsByClassName('expectedresponses')]
+        for(let i=0;i<listOfErs.length;i++)
+        {
+            newListOfErs[i].value = listOfErs[i].value;
+        }
+
+
+    }
+
+
+    const shiftElements = (listOfElements, index) => {
+
+        // console.log('shiftElements')
+        if(listOfElements.length === 1)
+            return [];
+
+        for(let i = index;i<listOfElements.length-1;i++)
+        {
+            listOfElements[i] = listOfElements[i+1];
+        }
+
+        let _ = listOfElements.pop();
+        return listOfElements;
+    }
+
+
+    // Deleting a row from the main screen
+    const deleteTestCase = (idName) => {
+        
+        let elements = [...document.querySelectorAll('.inputRows')];
+        const idToDelete = idName; //.split('_')[1];
+        // console.log(idToDelete);
+        let newList = elements.slice();
+
+        // let listOfTestCaseIds = [...document.getElementsByClassName('manualtestcaseids')];
+        let listOfDescriptions = [...document.getElementsByClassName('descriptions')];
+        let listOfRequests = [...document.getElementsByClassName('requestbodies')];
+        let listOfErs = [...document.getElementsByClassName('expectedresponses')];
+   
+        let e;
+        for(let i=0;i<elements.length;i++)
+        {
+            // console.log(elements.length);
+            e = elements[i].innerHTML.toString();
+            // console.log(e);
+            if(e.indexOf(idToDelete) !== -1) 
+            {
+                newList = shiftElements(elements.slice(), i);
+                // listOfTestCaseIds = shiftElements(listOfTestCaseIds.slice(), i);
+                listOfDescriptions = shiftElements(listOfDescriptions.slice(), i);
+                listOfRequests = shiftElements(listOfRequests.slice(), i);
+                listOfErs = shiftElements(listOfErs.slice(), i);
+                break;
+            }
+        }
+
+        let renderedContent = '';
+        for(let i=0;i<newList.length;i++)
+        {
+            renderedContent+=("<tr class='inputRows'>"+ newList[i].innerHTML.toString() +"</tr>")
+        }
+        
+        document.querySelector('tbody').innerHTML = renderedContent;
+
+        let newListOfDescriptions = [...document.getElementsByClassName('descriptions')]
+        for(let i=0;i<newListOfDescriptions.length;i++)
+        {
+            newListOfDescriptions[i].value = listOfDescriptions[i].value;
+        }
+
+        let newListOfRequests = [...document.getElementsByClassName('requestbodies')]
+        for(let i=0;i<newListOfRequests.length;i++)
+        {
+            newListOfRequests[i].value = listOfRequests[i].value;
+        }
+     
+        let newListOfErs = [...document.getElementsByClassName('expectedresponses')]
+        for(let i=0;i<newListOfErs.length;i++)
+        {
+            newListOfErs[i].value = listOfErs[i].value;
+        }
+     
+    }
+
+    // Removing a key value pair from modal
+    const deletePair = (idName) => {
+
+        let elements = [...document.querySelectorAll('.inputKeyValues')];
+        const idToDelete = idName; //.split('_')[1];
+        // console.log(idToDelete);
+        let newList = elements.slice();
+
+        // let listOfTestCaseIds = [...document.getElementsByClassName('manualtestcaseids')];
+        let listOfKeys = [...document.getElementsByClassName('keys')];
+        let listOfTypes = [...document.querySelectorAll('select')];
+        let listOfValues = [...document.getElementsByClassName('kvalues')];
+
+        let e;
+        for(let i=0;i<elements.length;i++)
+        {
+            // console.log(elements.length);
+            e = elements[i].innerHTML.toString();
+            // console.log(e);
+            if(e.indexOf(idToDelete) !== -1) 
+            {
+                newList = shiftElements(elements.slice(), i);
+                // listOfTestCaseIds = shiftElements(listOfTestCaseIds.slice(), i);
+                listOfKeys = shiftElements(listOfKeys.slice(), i);
+                listOfTypes = shiftElements(listOfTypes.slice(), i);
+                listOfValues = shiftElements(listOfValues.slice(), i);
+                break;
+            }
+        }
+
+        let renderedContent = ''
+        for(let i=0;i<newList.length;i++)
+            renderedContent+=("<tr class='inputKeyValues'>"+ newList[i].innerHTML.toString() +"</tr>")
+
+        document.querySelector('.modal tbody').innerHTML = renderedContent;
+
+        let newListOfKeys = [...document.getElementsByClassName('keys')]
+        for(let i=0;i<newListOfKeys.length;i++)
+            newListOfKeys[i].value = listOfKeys[i].value;
+    
+        let newListOfValues = [...document.getElementsByClassName('kvalues')]
+        for(let i=0;i<newListOfValues.length;i++)
+            newListOfValues[i].value = listOfValues[i].value;
+        
+        let newListOfTypes = [...document.querySelectorAll('select')]
+        for(let i=0;i<newListOfTypes.length;i++)
+            newListOfTypes[i].value = listOfTypes[i].value;
+        
+    }
+
+    let modalActiveId; // To map modal contents to test case
+    
+
+    const displayModal = (id) => {
+        document.getElementById("simpleModal").style.display = "block";
+        modalActiveId = id;
+
+        document.querySelector('.modal tbody').innerHTML = '';
+    } 
+
+    document.getElementsByClassName('closeBtn')[0].addEventListener('click',  function() {
+        document.getElementById("simpleModal").style.display = "none";
+    }); // To close modal
+
+
+    // Adding a row in the modal
+    const addRequestPair = (id) => {
+  
+        let listOfNodes = [...document.querySelectorAll('.inputKeyValues')];
+        let listOfKeys = [...document.getElementsByClassName('keys')];
+        let listOfTypes = [...document.querySelectorAll('select')];
+        let listOfValues = [...document.getElementsByClassName('kvalues')];
+
+
+        let renderedContent = '';
+        for(let i=0;i<listOfNodes.length;i++)
+        {
+            renderedContent+=("<tr class='inputKeyValues'>"+ listOfNodes[i].innerHTML.toString() +"</tr>")
+        }
+
+        numberOfKVPairs+=1;
+
+        // let renderedContent = '';
+        renderedContent+= `<tr class="inputKeyValues">
+                        <td><input class="keys" id="keyEntry_${numberOfKVPairs}" type="text" style="width:300px;" /></td>
+                        <td>
+                            <select id="selectpickerType_${numberOfKVPairs}" data-style="btn-info" name="selectpicker">
+                                <optgroup label="Select Type">
+                                    <option name="def" value="0">Select Type</option>
+                                    <option name="num" value="Number">Number</option>
+                                    <option name="stri" value="String">String</option>
+                                    <option name="boole" value="Boolean">Boolean</option>
+                                </optgroup>
+                            </select>  
+                        </td>
+                        <td><input class="kvalues" id="valueEntry_${numberOfKVPairs}" type="text" style="width:300px;"/></td>
+                        <td id='deleteKVEntry_${numberOfKVPairs}' style="font-size:22px;" onClick="deletePair(this.getAttribute('id'))"><i class='bx bx-x-circle'></i></td></tr>`;
+
+
+        document.querySelector('.modal tbody').innerHTML = renderedContent;
+    
+        let newListOfKeys = [...document.getElementsByClassName('keys')]
+        for(let i=0;i<listOfKeys.length;i++)
+        {
+            newListOfKeys[i].value = listOfKeys[i].value;
+        }
+
+        let newListOfValues = [...document.getElementsByClassName('kvalues')]
+        for(let i=0;i<listOfValues.length;i++)
+            newListOfValues[i].value = listOfValues[i].value;
+        
+        let newListOfTypes = [...document.querySelectorAll('select')]
+        for(let i=0;i<listOfTypes.length;i++)
+            newListOfTypes[i].value = listOfTypes[i].value
+
+    }
+
+
+    const typeConverted = (valueEntity, typeEntity) => {
+
+        // console.log(typeEntity);
+        if(typeEntity === 'Number')
+        {
+            try
+            {
+                let p = Number(valueEntity);
+                if(Number.isNaN(p))
+                    throw "Type Incompatibility";
+                return p;
+            }
+            catch(e)
+            {
+                return 0;
+            }
+            
+        }
+        else if(typeEntity === 'String')
+        {
+            return `\"${valueEntity}\"`;
+        }
+        else
+        {
+            try
+            {
+                if(valueEntity.toLowerCase() === 'false')
+                    return false;
+                else if(valueEntity.toLowerCase() === 'true')
+                    return true;
+                else throw "Type Incompatibility"; 
+            }
+            catch(er)
+            {
+                return  0;
+            }
+        }
+
+    }
+
+    const constructRequestBody = () => {
+
+        console.log('Modal invoked for request: ' + modalActiveId);
+        let listOfKeys = [...document.getElementsByClassName('keys')];
+        let listOfTypes = [...document.querySelectorAll('select')];
+        let listOfValues = [...document.getElementsByClassName('kvalues')];
+        let typeChecked = 0;
+
+        let constructedRequestBody = '{';
+
+        for(let i=0;i<listOfKeys.length;i++)
+        {
+            if(!listOfKeys[i].value || !listOfValues[i].value || listOfTypes[i].value === "0")
+            {
+                typeChecked = 0; // To make sure that code at 2 is not executed if blank entries are present
+                console.log('Blank Space');
+                break;
+            }
+
+            typeChecked = typeConverted(listOfValues[i].value, listOfTypes[i].value);
+            // console.log(typeChecked);
+            if(typeChecked === 0)
+                break;
+            
+            constructedRequestBody+=`\"${listOfKeys[i].value}\":${typeChecked}`;
+            if(i < listOfKeys.length - 1)
+                constructedRequestBody+=`,`
+            
+        }
+
+        // 2
+        if(typeChecked !== 0)
+        {
+            constructedRequestBody+='}';
+            constructedRequestBody = constructedRequestBody.replace(/,/g, ",\n\t").replace(/{/g, "{\n\t").replace(/}/,"\n}");
+            console.log(constructedRequestBody);
+
+            let pre = modalActiveId.split('_')[0]; // To extract the column which the modal values have to be mapped to
+
+            let idDescriptor = {
+                'requestColumnBtn':'req',
+                'responseColumnBtn':'selectpicker'
+            }[pre];
+            
+            pre = pre.slice(0,pre.length-3); // To remove substring "Btn"
+            let testCaseIdentifier = modalActiveId.split('_')[1]; 
+            document.querySelector(`#${pre}_${testCaseIdentifier}`).innerHTML = `<textarea id="${idDescriptor}_${testCaseIdentifier}" rows="10" cols="20" >${constructedRequestBody}</textarea>
+                                                                                        <a id="${pre}_edit_${testCaseIdentifier}" href='#' class="btn" onClick="displayValuesInModal(this.getAttribute('id'))" style="color:black;border:1px solid white;background:white;padding: 5px;border-radius: 47px;"><i class='bx bx-edit-alt'></i></a>`;
+            document.getElementById("simpleModal").style.display = "none";
+
+        }
+
+    }
+
+
+    const inferType = (val) => {
+
+        if(typeof val === 'number')
+            return 1;
+        else if (typeof val === 'string')
+            return 2;
+        else
+            return 3;
+    }
+
+
+    const displayValuesInModal = (id) => {
+
+        let pre = id.split('_')[0] + 'Btn';
+
+        let testCaseIdentifier = id.split('_')[2];
+
+        modalActiveId = pre+'_'+testCaseIdentifier;
+
+        let idDescriptor = {
+                'requestColumnBtn':'req',
+                'responseColumnBtn':'selectpicker'
+        }[pre];
+
+        let textToParse = JSON.parse(document.getElementById(`${idDescriptor}_${testCaseIdentifier}`).value);
+        renderedContent = '';
+
+        let kvcount = 1;
+        for(let k in textToParse)
+        {
+
+            let inferredType = inferType(textToParse[k]);
+
+            renderedContent+=`<tr class="inputKeyValues">
+                        <td><input class="keys" id="keyEntry_${kvcount}" type="text" style="width:300px;" value="${k}" /></td>
+                        <td>
+                            <select id="selectpickerType_${kvcount}" data-style="btn-info" name="selectpicker">
+                                <optgroup label="Select Type">
+                                    <option name="def" value="0">Select Type</option>
+                                    <option name="num" value="Number" ${inferredType === 1?"selected":""}>Number</option>
+                                    <option name="stri" value="String" ${inferredType === 2?"selected":""}>String</option>
+                                    <option name="boole" value="Boolean" ${inferredType === 3?"selected":""}>Boolean</option>
+                                </optgroup>
+                            </select>  
+                        </td>
+                        <td><input class="kvalues" id="valueEntry_${kvcount}" type="text" style="width:300px;" value="${textToParse[k]}" /></td>
+                        <td id='deleteKVEntry_${kvcount}' style="font-size:22px;" onClick="deletePair(this.getAttribute('id'))"><i class='bx bx-x-circle'></i></td></tr>`;
+            kvcount+=1;
+        }
+            
+        document.querySelector('.modal tbody').innerHTML = renderedContent;
+        document.getElementById("simpleModal").style.display = "block";
+
+    }
+
+    const getCsvBody = () => {
+        // console.log("This is API: " + document.getElementById('endpointToHit').innerText.toLowerCase());
+        let eptohit = document.getElementById('endpointToHit').innerText.trim().toLowerCase();
+        fetch(`http://localhost:3001/getTestCasesCsv/${eptohit}`
+        // ,{
+            // method:'POST',
+            // headers: {
+            //     'Content-Type': 'application/json'
+            // },
+            // body:JSON.stringify({apiName:eptohit})
+        // }
+        )
+        .then(response => response.blob())
+        .then(blob => {
+            let fileName = `${eptohit}_Data.csv`;
+            let blobObj = new File([blob], fileName, {type: "blob.type"});
+            const url = window.URL.createObjectURL(blobObj);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            // the filename you want
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(e => {
+            console.log('Failed to download csv file');
+            console.log(e);
+        })
+
+    }
+
+
+
+
+</script>
+</body>
+</html>

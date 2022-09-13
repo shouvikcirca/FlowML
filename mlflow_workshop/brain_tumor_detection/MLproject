@@ -1,0 +1,14 @@
+name: tensorflow-example
+
+entry_points:
+  tuning:
+    command: "python hyperparameter_tuning.py"
+
+  ht:
+    parameters:
+      learning_rate: {type: float, default: 0.1}
+      bs: {type: int, default: 64}
+      epochs: {type: int, default: 5}
+      run_id : {type:string }
+    command: "python baseRunnerVision.py --learning-rate {learning_rate} --bs {bs} --epochs {epochs} --run-id {run_id}"
+

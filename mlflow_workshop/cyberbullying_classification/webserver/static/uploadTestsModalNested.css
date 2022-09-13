@@ -1,0 +1,23 @@
+.input_container /*:not(:first-child)*/
+{
+    margin-left: 3rem;
+    margin-top: 1rem;
+}
+
+
+.input_card::before /*:not(:first-child)*/
+{
+    content:"";
+    background-color: black;
+    position: absolute;
+    min-height: 100%;
+    width:6px;
+    left:-10px;
+}
+
+
+
+.input_card:not(:first-child){
+    margin-top: 1rem;
+    margin-left: 3rem;
+}
