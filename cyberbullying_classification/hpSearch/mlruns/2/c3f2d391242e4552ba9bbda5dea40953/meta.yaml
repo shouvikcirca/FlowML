@@ -1,0 +1,15 @@
+artifact_uri: file:///home/centos/Shouvik/mlflow_workshop/cyberbullying_classification/hpSearch/mlruns/2/c3f2d391242e4552ba9bbda5dea40953/artifacts
+end_time: 1663742851848
+entry_point_name: ''
+experiment_id: '2'
+lifecycle_stage: active
+name: ''
+run_id: c3f2d391242e4552ba9bbda5dea40953
+run_uuid: c3f2d391242e4552ba9bbda5dea40953
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1663742829905
+status: 3
+tags: []
+user_id: unknown

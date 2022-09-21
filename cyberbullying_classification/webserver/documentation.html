@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .editorCode
+        {
+            border:1px solid black;
+            background-color: black;
+            color: lightblue;
+            width:50%;
+            padding:20px;
+        }
+
+        .terminalCode
+        {
+            background-color: gray;
+            color: black;
+            width:50%;
+            padding:20px;
+        }
+
+        .text
+        {
+            border: 1px solid black;
+            width:50%;
+            padding:20px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Setting up FastAPI</h1>
+    <div class="text">
+        Need Python >3.6
+    </div>
+    <div class="terminalCode">
+        pip install fastapi<br>
+        pip install uvicorn
+    </div>
+    <br>
+    <h1>Start server</h1>
+    <div class="terminalCode">
+        uvicorn main:app --reload
+    </div>
+</body>
+</html>
