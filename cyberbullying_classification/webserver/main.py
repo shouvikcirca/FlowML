@@ -25,13 +25,18 @@ async def index(data: ExperimentDataModel):
     hyperparams = {
         'Text Classification':[
             ['learning_rate', 'float'],
+            # ['learning_rate_end', 'float'],
             ['vocab_length','int'],
+            # ['vocab_length_end','int'],
             ['seq_padding_style','string',['post', 'pre']],
-            ['seq_truncating_style','string',['post', 'pre']],
+            #['seq_truncating_style','string',['post', 'pre']],
             ['embedding_dim','int'],
+            # ['embedding_dim_end','int'],
             ['bs','int'],
+            # ['bs_end','int'],
             ['epochs','int'],
-            ['max_length','int']
+            # ['epochs_end','int']
+            #['max_length','int']
         ]
     }
 

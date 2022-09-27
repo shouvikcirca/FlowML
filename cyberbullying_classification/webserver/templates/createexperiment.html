@@ -261,7 +261,29 @@
             </div>
         </div>
 
+
         <div class="details uploadDataSection">
+            <div class="recentOrdersOne" style="background: white;border-radius: 3px;">
+                <div class="cardHeader">
+                   
+                </div>
+
+                <label>
+                        <a href="#" onclick="">
+                        <!-- <i class="bx bx-upload"></i> -->
+                        <form class="paramsSection" action="#" >
+                            
+                        </form>
+                    </a>
+                    <!-- <i class='bx bx-search-alt' ></i> -->
+                </label>
+                    
+
+
+            </div>
+        </div>
+
+        <div class="details">
             <div class="recentOrdersOne" style="background: white;border-radius: 3px;">
                 <div class="cardHeader">
                     <h2 id='endpointToHit'>
@@ -276,12 +298,12 @@
                         <!-- <i class="bx bx-upload"></i> -->
                         <form action="#" >
                             <input type="file" name='uploadFiles' class='file-input'  hidden>
-                            <i class="fas fa-cloud-upload-alt"> Upload Data</i>
+                            <i class="fas fa-cloud-upload-alt">Upload Data</i>
                         </form>
                     </a>
                     <!-- <i class='bx bx-search-alt' ></i> -->
                 </label>
-
+                    
 
 
             </div>
@@ -334,25 +356,46 @@
         constructor()
         {}
 
-        floatType()
+        floatType(field)
         {
-                return `
-                From 
-                <input type='number' />
-                To
-                <input type='number' />
-                `
+
+                return  `${field}: From <input type='number' id='${field+'_start'}'/> To <input type='number' id='${field+'_end'}'/><br>`
+        }
+        strType(field, labels)
+        {
+                let returnString = 
+                `${field}:<select id="selectpickerType_${numberOfKVPairs}" data-style="btn-info" name="selectpicker">
+                                <optgroup label="Select Type">
+                                    <option name="def" value="0">Select Type</option>`;
+                for (let t in labels)
+                {
+                    returnString+=`<option name="${labels[t]}" value="${labels[t]}">${labels[t]}</option>`
+                }
+
+                returnString+=`</optgroup>
+                            </select><br>`;
+                                
+                return returnString;
+        }
+        intType(field)
+        {
+                return `${field}: From <input type='number' id='${field+'_start'}'/> To <input type='number' id='${field+'_end'}'/><br>`
         }
     }
 
-
-
     const showUploadDataSection = () => {
+
+        let typeTemplate = {
+            'float': `From <input type='number' /> To <input type='number' />`
+        }
+
+
+
         document.querySelector('.uploadDataSection').style.display='block';
         
         testCaseBody = {
-            experimentname: document.getElementById('search').value,
-            experimenttype: document.getElementById('taskSelect').value
+            "experimentname": document.getElementById('search').value,
+            "experimenttype": document.getElementById('taskSelect').value
         }
         
         fetch('http://localhost:8000/experimentData',{
@@ -365,12 +408,20 @@
         .then(response => response.json())
         .then(data => {
 
-                obj = hparamRenderer()
+                let dataToRender = ''
+                obj = new hparamRenderer()
                 for(let i=0;i<data.length;i++)
                 {
-                    
+                    if(data[i][1] === 'string')
+                        dataToRender+=obj.strType(data[i][0], data[i][2])
+                    else if(data[i][1] === 'float')
+                        dataToRender+=obj.floatType(data[i][0], data[i][2])
+                    else
+                        dataToRender+=obj.intType(data[i][0], data[i][2])
                 }
-                let dataToRender = ''
+                
+                document.querySelector('.paramsSection').innerHTML = dataToRender;
+
 
         })
     }
