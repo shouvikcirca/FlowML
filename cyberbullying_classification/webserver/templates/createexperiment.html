@@ -271,9 +271,10 @@
                 <label>
                         <a href="#" onclick="">
                         <!-- <i class="bx bx-upload"></i> -->
-                        <form class="paramsSection" action="#" >
+                        <form class="paramsSection" ><!-- action="http://127.0.0.1/uploadHParams" method="'POST"> -->
                             
                         </form>
+                        
                     </a>
                     <!-- <i class='bx bx-search-alt' ></i> -->
                 </label>
@@ -296,8 +297,8 @@
                 <label>
                         <a href="#" onclick="">
                         <!-- <i class="bx bx-upload"></i> -->
-                        <form action="#" >
-                            <input type="file" name='uploadFiles' class='file-input'  hidden>
+                        <form class="dUpload" action="#" >
+                            <input type="file" name='uploadFiles' class='dataset-input'  hidden>
                             <i class="fas fa-cloud-upload-alt">Upload Data</i>
                         </form>
                     </a>
@@ -333,16 +334,36 @@
     let toggle = document.querySelector('.toggle');
     let sidebar = document.querySelector('.sidebar');
     let main = document.querySelector('.main');
-    const form = document.querySelector("form");
-    const fileInput = form.querySelector('.file-input')
+    const form = document.querySelector(".dUpload");
+    const fileInput = form.querySelector('.dataset-input')
 
     const uploadFile = name => {
-        console.log('Upload File fucntion working');
+        
+        let xhr = new XMLHttpRequest();
+        xhr.onload = () => {} // Add upload acknowledgement message later
+
+        xhr.open("POST", "http://localhost:8000/datasetUpload")
+        let formData = new FormData(form);
+        xhr.send(formData);
     };
 
     form.addEventListener("click", () => {
         fileInput.click();
     })
+
+    fileInput.onchange = ({target}) => {
+        let file =  target.files[0];
+        if(file)
+        {
+            let fileName = document.getElementById('search').value.toLowerCase()+'.txt'
+            console.log(`FIlename is ${fileName}`)
+            uploadFile(fileName)
+        }
+    }
+
+
+
+
 
 
     let task = document.getElementById('taskSelect')
@@ -364,7 +385,7 @@
         strType(field, labels)
         {
                 let returnString = 
-                `${field}:<select id="selectpickerType_${numberOfKVPairs}" data-style="btn-info" name="selectpicker">
+                `${field}:<select id="select_${field}" data-style="btn-info" name="selectpicker">
                                 <optgroup label="Select Type">
                                     <option name="def" value="0">Select Type</option>`;
                 for (let t in labels)
@@ -388,8 +409,6 @@
         let typeTemplate = {
             'float': `From <input type='number' /> To <input type='number' />`
         }
-
-
 
         document.querySelector('.uploadDataSection').style.display='block';
         
@@ -419,6 +438,8 @@
                     else
                         dataToRender+=obj.intType(data[i][0], data[i][2])
                 }
+
+                dataToRender+='<input style="width:40px;" type="button" value="Next" onclick="sendParamValues()">'
                 
                 document.querySelector('.paramsSection').innerHTML = dataToRender;
 
@@ -426,7 +447,51 @@
         })
     }
 
+    const sendParamValues = () => {
 
+        // Fetching what hyperparameter values exist to make this dynamic
+        fetch('http://localhost:8000/experimentData',{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(testCaseBody)
+        })
+        .then(response => response.json())
+        .then(data => {
+        
+                let dataBodyToSend = {};
+                for(let i=0;i<data.length;i++)
+                {
+                        if(data[i][1] === 'float' || data[i][1] === 'int')
+                        {
+                                let kstart = data[i][0]+'_start';
+                                let kend = data[i][0]+'_end';
+
+                                dataBodyToSend[kstart] = document.querySelector(`#${kstart}`).value;
+                                dataBodyToSend[kend] = document.querySelector(`#${kend}`).value;
+                        }
+                        else
+                        {
+
+                                let k = data[i][0];
+                                dataBodyToSend[k] = document.querySelector(`#select_${k}`).value;
+                        }
+
+                        dataBodyToSend['experimentname']=document.getElementById('search').value;
+                }
+
+            fetch('http://localhost:8000/uploadHParams',{
+                    method:'POST',
+                    headers: {
+                            'Content-Type': 'application/json'
+                    },
+                    body:JSON.stringify(dataBodyToSend)
+            })
+            .then(response => response.json())
+            .then(data => {})
+        })
+    }
 
 
     async function getapis() {
