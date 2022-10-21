@@ -1,0 +1,13 @@
+version: "3.4"
+services:
+  postgresairflow:
+    image: postgres:latest
+    restart: always
+    ports:
+     - 27014:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+

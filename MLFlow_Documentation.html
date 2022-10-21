@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .editorCode
+        {
+            border:1px solid black;
+            background-color: black;
+            color: lightblue;
+            width:50%;
+            padding:20px;
+        }
+
+        .terminalCode
+        {
+            background-color: gray;
+            color: black;
+            width:50%;
+            padding:20px;
+        }
+
+        .text
+        {
+            border: 1px solid black;
+            width:50%;
+            padding:20px;
+        }
+
+    </style>
+</head>
+<body>
+     
+    <!-- ////////////////////////////////////////////////////////// -->
+        <h1>Creating an experiment</h1>
+        <div class="editorCode">
+            import mlflow<br>
+            from mlflow.tracking import MlflowClient<br>
+
+            experiment_id = mlflow.create_experiment("Example_Flow")<br>
+
+        </div>
+
+        <div class="terminalCode">
+            $ mlflow runs . --no-conda
+        </div>
+
+        <div class="text">
+            Creates an experiment with id, let's say 1. We'll use this experiment in the following steps.
+        </div>
+        <br><br>
+
+        <!-- /////////////////////////////////////////////////////// -->
+        <h1>Starting a run inside an experiment</h1>
+        <div class="editorCode">
+            import mlflow<br>
+            from mlflow.tracking import MlflowClient<br>
+            <br><br>
+            experiment = mlflow.get_experiment('1')<br>
+            mlflow.set_experiment(experiment.name)<br>
+
+
+            with mlflow.start_run(experiment_id = str(experiment.experiment_id)) as active_run:<br>
+            &nbsp &nbsp mlflow.log_param('p',0)<br>
+
+        </div>
+        <div class="terminalCode">
+            $ mlflow runs . --no-conda --experiment-id=1
+        </div>
+        <br>
+        <br>
+        <!-- ///////////////////////////////////////////////////////// -->
+
+
+        <h1>MLProject structure</h1>
+        <div class="editorCode">
+            name: tensorflow-example<br>
+
+            entry_points:<br>
+            
+            &nbsp &nbsp mfc:<br>
+            &nbsp &nbsp &nbsp &nbsp command: "python testMlflowclient.py"<br>
+            
+            &nbsp &nbsp main:<br>
+            &nbsp &nbsp &nbsp &nbsp command: "python testExample.py"<br>
+            
+        </div>
+
+
+
+
+        <!-- ///////////////////////////////////////////////////////// -->
+
+        <h1>Running an entrypoint from terminal</h1>
+        <div class="terminalCode">
+            $ mlflow run -e mfc . --no-conda
+        </div>
+        <div class="text">
+            mfc is an entrypoint defined in file <em>MLproject</em>
+        </div>
+        <br>
+        <br>
+        <!-- ///////////////////////////////////////////////////////// -->
+
+        <h1>Multiple Runs In An Experiment</h1>
+        <div class="editorCode">
+            def createRuns(p, expId):<br>
+            &nbsp &nbsp run = client.create_run(expId)<br>
+            &nbsp &nbsp with mlflow.start_run(run.info.run_id) as active_run:<br>
+            &nbsp &nbsp &nbsp &nbsp client.log_param(run.info.run_id, 'p', "Here is {}".format(p))<br>
+            &nbsp &nbsp client.set_terminated(run.info.run_id)<br><br><br>
+    
+            if __name__ == '__main__':<br>
+            &nbsp &nbsp experiment = mlflow.get_experiment('2')<br>
+            &nbsp &nbsp mlflow.set_experiment(experiment.name)<br>
+            &nbsp &nbsp client = MlflowClient()<br>
+            &nbsp &nbsp exps = client.list_experiments()<br>
+            &nbsp &nbsp for i in range(10):<br>
+            &nbsp &nbsp &nbsp &nbsp createRuns(i,'2')<br>
+            &nbsp &nbsp &nbsp &nbsp r = mlflow.search_runs()<br>
+            &nbsp &nbsp &nbsp &nbsp print(r)
+        </div>
+        <div class="terminalCode">
+            $ mlflow run -e mfc . --no-conda
+        </div>
+        <br>
+        <br>
+        <!-- ///////////////////////////////////////////////////////// -->
+
+        <h1>Listing runs in an experiment</h1>
+        <div class="editorCode">
+        import mlflow<br><br>
+
+        if __name__ == '__main__':<br>
+        &nbsp &nbsp runs = mlflow.list_run_infos("2")<br>
+        </div>
+        <div class="text">
+            <em>runs</em> is a dictionary with the following keys<br>
+            <ul>
+                <li>artifact_uri</li>
+                <li>end_time</li>
+                <li>experiment_id</li>
+                <li>lifecycle_stage</li>
+                <li>run_id</li>
+                <li>run_uuid</li>
+                <li>start_time</li>
+                <li>status</li>
+                <li>user_id</li>
+            </ul>
+        </div>
+        <br>
+        <br>
+        <!-- ///////////////////////////////////////////////////////// -->
+
+        <h1>Setting tags for Runs</h1>
+        <div class="editorCode">
+            import mlflow<br>
+            from mlflow.tracking import MlflowClient<br><br>
+
+            def createRuns(p, expId):<br>
+            &nbsp &nbsp run = client.create_run(expId)<br>
+            &nbsp &nbsp with mlflow.start_run(run.info.run_id) as active_run:<br>
+            &nbsp &nbsp &nbsp &nbsp client.set_tag(run.info.run_id,"p", p)<br>
+            &nbsp &nbsp client.set_terminated(run.info.run_id)<br><br>
+
+            if __name__ == '__main__':<br>
+            &nbsp &nbsp experiment = mlflow.get_experiment('2')<br>
+            &nbsp &nbsp mlflow.set_experiment(experiment.name)<br>
+            &nbsp &nbsp client = MlflowClient()<br>
+            &nbsp &nbsp for i in range(10):<br>
+            &nbsp &nbsp &nbsp &nbsp createRuns(i,'2')<br>
+        </div>
+        <br>
+        <br>
+        <!-- ///////////////////////////////////////////////////////// -->
+
+         <h1>Retrieving tags for Runs</h1>
+         <div class="editorCode">
+            import mlflow<br>
+            from mlflow.tracking import MlflowClient<br><br>
+            
+            if __name__ == '__main__':<br>
+            &nbsp &nbsp client = MlflowClient()<br>
+            &nbsp &nbsp for r in runs:<br>
+            &nbsp &nbsp &nbsp &nbsp thisRun = client.get_run(r.run_id)<br>
+            &nbsp &nbsp &nbsp &nbsp print('Tags for Run: {}'.format(r.run_id))<br>
+            &nbsp &nbsp &nbsp &nbsp print(thisRun.data.tags)<br>
+            &nbsp &nbsp &nbsp &nbsp print("---")<br>
+         </div>
+         <br>
+         <br>
+        <!-- ///////////////////////////////////////////////////////// -->
+
+
+        <h1>Setting up Postgres and Minio</h1>
+        <div class="text">
+            Install Postgres from the yum ( CentOS) or apt (Ubuntu) repository<br>
+            Post installation troubleshooting required.<br>
+            <ol>
+                <li>Make changes to the file <em>/var/lib/pgsql/data/pg_hba.conf</em></li>
+            </ol>
+        </div>
+        <div class="editorCode">
+            local &nbsp &nbsp all &nbsp &nbsp postgres &nbsp &nbsp trust
+        </div>
+        <div class="text">
+            Restart Postgres server as shown below<br>
+        </div>
+        <div class="terminalCode">
+            sudo service postgresql restart
+        </div>
+        <div class="text">
+            Login into the psql shell<br>
+        </div>
+        <div class="terminalCode">
+            psql --username postgres
+        </div>
+        <div class="text">
+            Create database inside the postgres shell and verify<br>
+        </div>
+        <div class="terminalCode">
+            1. CREATE DATABASE mlflow_db;<br>
+            2. \list
+            GRANT ALL PRIVILEGES ON DATABASE mlflow_db TO db_user
+        </div>
+        <div class="text">
+            Grant user "postgres" all privileges to created database<br>
+        </div>
+        <div class="terminalCode">
+            GRANT ALL PRIVILEGES ON DATABASE mlflow_db TO db_user;
+        </div>
+        <div class="text">
+            Outside the shell, Install minio which is used for large object<br>
+        </div>
+        <div class="terminalCode">
+            1. wget https://dl.min.io/server/minio/release/linux-amd64/minio<br>
+            2. chmod +x minio<br>
+        </div>
+        <div class="text">
+            Start minio
+        </div>
+        <div class="terminalCode">
+            MINIO_ROOT_USER=admin MINIO_ROOT_PASSWORD=password ./minio server /mnt/data --console-address ":9001"
+        </div>
+        <div class="text">
+            Output contains the browser URL to access the GUI of minio and also username and password which by default is <em>admin</em> and <em>password</em>
+        </div>
+        <div class="text">
+            Run Mlflow server
+        </div>
+        <div class="terminalCode">
+            mlflow server --backend-store-uri postgresql+psycopg2://postgres:password@localhost:5432/mlflowdb --default-artifact-root s3://mlflow/ --host 127.0.0.1 -p 5000
+        </div>
+        <div class="text">
+            The above creates all the tracking tables in the mlflowdb database in Postgres
+        </div>
+        <div class="text">
+            1. To open MLFlow UI, go to localhost:5000<br>
+            2. To open minio UI, go to localhost:9000
+        </div>
+        <div class="text">
+            The above creates all the tracking tables in the mlflowdb database in Postgres
+        </div>
+        <br>
+         <br>
+        <!-- ///////////////////////////////////////////////////////// -->
+
+
+        <h1>Serving model</h1>
+        <div class="terminalCode">
+            export MLFLOW_TRACKING_URI=postgresql+psycopg2://postgres:password@localhost:5432/mlflowdb<br>
+            export MLFLOW_S3_ENDPOINT_URL=http://10.180.146.26:9000<br>
+            export AWS_ACCESS_KEY_ID=admin<br>
+            export AWS_SECRET_ACCESS_KEY=password<br>
+            mlflow models serve -m "models:/alpha/Staging" -h 127.0.0.1 -p 5004 --env-manager=local<br>
+        </div>
+  <!-- ///////////////////////////////////////////////////////// -->
+
+        <h1>Postgres scripts to see and delete data</h1>
+        <div class="terminalCode">
+            psql -U postgres -h 127.0.0.1 -d mlflowdb -f seedata.sql
+        </div>
+        <div class="terminalCode">
+            psql -U postgres -h 127.0.0.1 -d mlflowdb -f deletetables.sql
+        </div>
+        <!-- ///////////////////////////////////////////////////////// -->
+
+        <h1>Connect to database</h1>
+        <div class="terminalCode">
+            psql --username postgres
+        </div>
+        <div class="terminalCode">
+            \c mlflowdb
+        </div>
+        <div class="text">
+            Connect to mlflowdb
+        </div>
+        <div class="terminalCode">
+            \dt
+        </div>
+        <div class="text">
+            List all tables
+        </div>
+
+
+        <!-- ///////////////////////////////////////////////////////// -->
+        <h1>Setting up Airflow</h1>
+        <div class="terminalCode">
+            pip install apache-airflow
+        </div>
+        <div class="text">
+            The above reates directory <em>~/airflow</em>
+        </div>
+        <div class="terminalCode">
+            export AIRFLOW_HOME=~/airflow
+        </div>
+        <div class="text">
+            Initialize database in the following way.
+            Created Postgres container using the docker-compose.yml file
+            Access the database and execute the following.
+        </div>
+        <div class="terminalCode">
+            CREATE DATABASE airflow_db;<br>
+            CREATE USER airflow_user WITH PASSWORD 'airflow_pass';<br>
+            GRANT ALL PRIVILEGES ON DATABASE airflow_db TO airflow_user;<br>
+            GRANT ALL PRIVILEGES ON DATABASE airflow_db TO postgres;
+        </div>
+        <div class="text">
+            Some configuration changes are required in ~/airflow/airflow.cfg as shown below            
+        </div>
+        <div class="terminalCode">
+            sql_alchemy_conn = postgresql+psycopg2://postgres:password@localhost:27014/airflow_db
+        </div>
+        <div class="text">
+            Run the following inside ~/airflow to initialize database
+        </div>
+        <div class="terminalCode">
+            airflow db init
+        </div>
+        <div class="text">
+            Create user as shown below
+        </div>
+        <div class="terminalCode">
+            airflow users create --username airflow_user --firstname airflow --lastname user --role Admin --email goldenfibo1123@gmail.com
+        </div>
+        <div class="text">
+            Make the following change in ~/airflow/airflow.cfg
+        </div>
+        <div class="terminalCode">
+            executor = LocalExecutor
+        </div>
+        <div class="text">
+            Place the DAG python file in the directory set in ~/airflow/airflow.cfg on the variable <strong>dags_folder</strong>
+        </div>
+        <div class="terminalCode">
+            airflow users create --username airflow_user --firstname airflow --lastname user --role Admin --email goldenfibo1123@gmail.com
+        </div>
+        <div class="text">
+            Start airflow scheduler as shown below
+        </div>
+        <div class="terminalCode">
+            airflow scheduler
+        </div>
+        <div class="text">
+            Start airflow webserver as shown below
+        </div>
+        <div class="terminalCode">
+            airflow webserver -p <em> &ltport of your choice&gt </em>
+        </div>
+        <div class="text">
+            If Kubernetes not found error arises, execute the following command<br>
+            After installation, restart Airflow webserver and scheduler
+        </div>
+        <div class="terminalCode">
+            pip install apache-airflow[kubernetes]
+        </div>
+        
+
+        
+
+
+        
+
+</body>
+</html>

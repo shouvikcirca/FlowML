@@ -1,0 +1,15 @@
+artifact_uri: file:///home/centos/airflow/mlruns/1/f1da691a8ac247be89ca0c9e8d09d022/artifacts
+end_time: 1666339015661
+entry_point_name: ''
+experiment_id: '1'
+lifecycle_stage: active
+name: ''
+run_id: f1da691a8ac247be89ca0c9e8d09d022
+run_uuid: f1da691a8ac247be89ca0c9e8d09d022
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1666339000474
+status: 4
+tags: []
+user_id: unknown
