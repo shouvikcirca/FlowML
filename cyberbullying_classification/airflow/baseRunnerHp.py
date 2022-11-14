@@ -14,11 +14,11 @@ from ray import tune
 from ray.tune.search.bayesopt import BayesOptSearch
 from functools import partial
 
-#mlflow.set_tracking_uri('http://localhost:5000')
-#os.environ['MLFLOW_TRACKING_URI'] = 'postgresql+psycopg2://postgres:password@localhost:5432/mlflowdb'
-#os.environ['MLFLOW_S3_ENDPOINT_URL'] =  'http://10.180.146.26:9000'
-#os.environ['AWS_ACCESS_KEY_ID'] = 'admin'
-#os.environ['AWS_SECRET_ACCESS_KEY'] = 'password'
+mlflow.set_tracking_uri('http://localhost:5000')
+os.environ['MLFLOW_TRACKING_URI'] = 'postgresql+psycopg2://postgres:password@localhost:5432/mlflowdb'
+os.environ['MLFLOW_S3_ENDPOINT_URL'] =  'http://10.180.146.26:9000'
+os.environ['AWS_ACCESS_KEY_ID'] = 'admin'
+os.environ['AWS_SECRET_ACCESS_KEY'] = 'password'
 #mlflow.keras.autolog(log_models = False)
 
 
@@ -55,7 +55,7 @@ def runBaseRunner(experiment_name, learning_rate_start,learning_rate_end, vocab_
 	algo = BayesOptSearch(utility_kwargs={'kind':'ucb', 'kappa':2.5, 'xi':0.0})
 	#algo = ConcurrencyLimiter(algo, max_concurrent=4)
 
-	num_samples = 5
+	num_samples = 2
 
 	tuner = tune.Tuner(
 			partial(train, data_dir=experiment_name),

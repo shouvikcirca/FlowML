@@ -1,0 +1,168 @@
+[2022-11-07T08:14:37.451+0000] {processor.py:156} INFO - Started process (PID=19522) to work on /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:14:37.452+0000] {processor.py:758} INFO - Processing file /home/centos/airflow/dags/inferenceworkflow.py for tasks to queue
+[2022-11-07T08:14:37.453+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:14:37.453+0000] {dagbag.py:525} INFO - Filling up the DagBag from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:14:39.017+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:14:39.016+0000] {dagbag.py:330} ERROR - Failed to import: /home/centos/airflow/dags/inferenceworkflow.py
+Traceback (most recent call last):
+  File "/home/centos/menv/lib/python3.7/site-packages/airflow/models/dagbag.py", line 326, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/centos/airflow/dags/inferenceworkflow.py", line 82, in <module>
+    python_callable = loadAndVectorize,
+NameError: name 'loadAndVectorize' is not defined
+[2022-11-07T08:14:39.018+0000] {processor.py:770} WARNING - No viable dags retrieved from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:14:39.231+0000] {processor.py:178} INFO - Processing /home/centos/airflow/dags/inferenceworkflow.py took 1.784 seconds
+[2022-11-07T08:15:09.505+0000] {processor.py:156} INFO - Started process (PID=20280) to work on /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:15:09.512+0000] {processor.py:758} INFO - Processing file /home/centos/airflow/dags/inferenceworkflow.py for tasks to queue
+[2022-11-07T08:15:09.513+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:15:09.513+0000] {dagbag.py:525} INFO - Filling up the DagBag from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:15:11.427+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:15:11.415+0000] {dagbag.py:330} ERROR - Failed to import: /home/centos/airflow/dags/inferenceworkflow.py
+Traceback (most recent call last):
+  File "/home/centos/menv/lib/python3.7/site-packages/airflow/models/dagbag.py", line 326, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/centos/airflow/dags/inferenceworkflow.py", line 82, in <module>
+    python_callable = loadAndVectorize,
+NameError: name 'loadAndVectorize' is not defined
+[2022-11-07T08:15:11.428+0000] {processor.py:770} WARNING - No viable dags retrieved from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:15:11.645+0000] {processor.py:178} INFO - Processing /home/centos/airflow/dags/inferenceworkflow.py took 2.144 seconds
+[2022-11-07T08:15:41.852+0000] {processor.py:156} INFO - Started process (PID=20694) to work on /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:15:41.860+0000] {processor.py:758} INFO - Processing file /home/centos/airflow/dags/inferenceworkflow.py for tasks to queue
+[2022-11-07T08:15:41.860+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:15:41.860+0000] {dagbag.py:525} INFO - Filling up the DagBag from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:15:43.873+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:15:43.872+0000] {dagbag.py:330} ERROR - Failed to import: /home/centos/airflow/dags/inferenceworkflow.py
+Traceback (most recent call last):
+  File "/home/centos/menv/lib/python3.7/site-packages/airflow/models/dagbag.py", line 326, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/centos/airflow/dags/inferenceworkflow.py", line 82, in <module>
+    python_callable = loadAndVectorize,
+NameError: name 'loadAndVectorize' is not defined
+[2022-11-07T08:15:43.875+0000] {processor.py:770} WARNING - No viable dags retrieved from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:15:44.108+0000] {processor.py:178} INFO - Processing /home/centos/airflow/dags/inferenceworkflow.py took 2.259 seconds
+[2022-11-07T08:16:14.735+0000] {processor.py:156} INFO - Started process (PID=21034) to work on /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:16:14.739+0000] {processor.py:758} INFO - Processing file /home/centos/airflow/dags/inferenceworkflow.py for tasks to queue
+[2022-11-07T08:16:14.740+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:16:14.740+0000] {dagbag.py:525} INFO - Filling up the DagBag from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:16:16.492+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:16:16.491+0000] {dagbag.py:330} ERROR - Failed to import: /home/centos/airflow/dags/inferenceworkflow.py
+Traceback (most recent call last):
+  File "/home/centos/menv/lib/python3.7/site-packages/airflow/models/dagbag.py", line 326, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/centos/airflow/dags/inferenceworkflow.py", line 82, in <module>
+    python_callable = loadAndVectorize,
+NameError: name 'loadAndVectorize' is not defined
+[2022-11-07T08:16:16.493+0000] {processor.py:770} WARNING - No viable dags retrieved from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:16:16.776+0000] {processor.py:178} INFO - Processing /home/centos/airflow/dags/inferenceworkflow.py took 2.045 seconds
+[2022-11-07T08:16:47.069+0000] {processor.py:156} INFO - Started process (PID=21390) to work on /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:16:47.079+0000] {processor.py:758} INFO - Processing file /home/centos/airflow/dags/inferenceworkflow.py for tasks to queue
+[2022-11-07T08:16:47.080+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:16:47.080+0000] {dagbag.py:525} INFO - Filling up the DagBag from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:16:49.010+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:16:49.002+0000] {dagbag.py:330} ERROR - Failed to import: /home/centos/airflow/dags/inferenceworkflow.py
+Traceback (most recent call last):
+  File "/home/centos/menv/lib/python3.7/site-packages/airflow/models/dagbag.py", line 326, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/centos/airflow/dags/inferenceworkflow.py", line 82, in <module>
+    python_callable = loadAndVectorize,
+NameError: name 'loadAndVectorize' is not defined
+[2022-11-07T08:16:49.010+0000] {processor.py:770} WARNING - No viable dags retrieved from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:16:49.186+0000] {processor.py:178} INFO - Processing /home/centos/airflow/dags/inferenceworkflow.py took 2.121 seconds
+[2022-11-07T08:17:19.494+0000] {processor.py:156} INFO - Started process (PID=21734) to work on /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:17:19.495+0000] {processor.py:758} INFO - Processing file /home/centos/airflow/dags/inferenceworkflow.py for tasks to queue
+[2022-11-07T08:17:19.496+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:17:19.496+0000] {dagbag.py:525} INFO - Filling up the DagBag from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:17:21.317+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:17:21.316+0000] {dagbag.py:330} ERROR - Failed to import: /home/centos/airflow/dags/inferenceworkflow.py
+Traceback (most recent call last):
+  File "/home/centos/menv/lib/python3.7/site-packages/airflow/models/dagbag.py", line 326, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/centos/airflow/dags/inferenceworkflow.py", line 82, in <module>
+    python_callable = loadAndVectorize,
+NameError: name 'loadAndVectorize' is not defined
+[2022-11-07T08:17:21.323+0000] {processor.py:770} WARNING - No viable dags retrieved from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:17:21.599+0000] {processor.py:178} INFO - Processing /home/centos/airflow/dags/inferenceworkflow.py took 2.109 seconds
+[2022-11-07T08:17:52.224+0000] {processor.py:156} INFO - Started process (PID=22083) to work on /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:17:52.225+0000] {processor.py:758} INFO - Processing file /home/centos/airflow/dags/inferenceworkflow.py for tasks to queue
+[2022-11-07T08:17:52.225+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:17:52.225+0000] {dagbag.py:525} INFO - Filling up the DagBag from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:17:53.378+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:17:53.377+0000] {dagbag.py:330} ERROR - Failed to import: /home/centos/airflow/dags/inferenceworkflow.py
+Traceback (most recent call last):
+  File "/home/centos/menv/lib/python3.7/site-packages/airflow/models/dagbag.py", line 326, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/centos/airflow/dags/inferenceworkflow.py", line 82, in <module>
+    python_callable = loadAndVectorize,
+NameError: name 'loadAndVectorize' is not defined
+[2022-11-07T08:17:53.379+0000] {processor.py:770} WARNING - No viable dags retrieved from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:17:53.404+0000] {processor.py:178} INFO - Processing /home/centos/airflow/dags/inferenceworkflow.py took 1.186 seconds
+[2022-11-07T08:18:23.717+0000] {processor.py:156} INFO - Started process (PID=22432) to work on /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:18:23.728+0000] {processor.py:758} INFO - Processing file /home/centos/airflow/dags/inferenceworkflow.py for tasks to queue
+[2022-11-07T08:18:23.729+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:18:23.729+0000] {dagbag.py:525} INFO - Filling up the DagBag from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:18:25.628+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:18:25.627+0000] {dagbag.py:330} ERROR - Failed to import: /home/centos/airflow/dags/inferenceworkflow.py
+Traceback (most recent call last):
+  File "/home/centos/menv/lib/python3.7/site-packages/airflow/models/dagbag.py", line 326, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/centos/airflow/dags/inferenceworkflow.py", line 82, in <module>
+    python_callable = loadAndVectorize,
+NameError: name 'loadAndVectorize' is not defined
+[2022-11-07T08:18:25.636+0000] {processor.py:770} WARNING - No viable dags retrieved from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:18:25.869+0000] {processor.py:178} INFO - Processing /home/centos/airflow/dags/inferenceworkflow.py took 2.157 seconds
+[2022-11-07T08:18:56.255+0000] {processor.py:156} INFO - Started process (PID=22857) to work on /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:18:56.265+0000] {processor.py:758} INFO - Processing file /home/centos/airflow/dags/inferenceworkflow.py for tasks to queue
+[2022-11-07T08:18:56.266+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:18:56.266+0000] {dagbag.py:525} INFO - Filling up the DagBag from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:18:57.445+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:18:57.444+0000] {dagbag.py:330} ERROR - Failed to import: /home/centos/airflow/dags/inferenceworkflow.py
+Traceback (most recent call last):
+  File "/home/centos/menv/lib/python3.7/site-packages/airflow/models/dagbag.py", line 326, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/centos/airflow/dags/inferenceworkflow.py", line 82, in <module>
+    python_callable = loadAndVectorize,
+NameError: name 'loadAndVectorize' is not defined
+[2022-11-07T08:18:57.445+0000] {processor.py:770} WARNING - No viable dags retrieved from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:18:57.521+0000] {processor.py:178} INFO - Processing /home/centos/airflow/dags/inferenceworkflow.py took 1.270 seconds
+[2022-11-07T08:19:28.107+0000] {processor.py:156} INFO - Started process (PID=23389) to work on /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:19:28.108+0000] {processor.py:758} INFO - Processing file /home/centos/airflow/dags/inferenceworkflow.py for tasks to queue
+[2022-11-07T08:19:28.109+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:19:28.109+0000] {dagbag.py:525} INFO - Filling up the DagBag from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:19:30.148+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:19:30.147+0000] {dagbag.py:330} ERROR - Failed to import: /home/centos/airflow/dags/inferenceworkflow.py
+Traceback (most recent call last):
+  File "/home/centos/menv/lib/python3.7/site-packages/airflow/models/dagbag.py", line 326, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/centos/airflow/dags/inferenceworkflow.py", line 82, in <module>
+    python_callable = loadAndVectorize,
+NameError: name 'loadAndVectorize' is not defined
+[2022-11-07T08:19:30.148+0000] {processor.py:770} WARNING - No viable dags retrieved from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:19:30.368+0000] {processor.py:178} INFO - Processing /home/centos/airflow/dags/inferenceworkflow.py took 2.266 seconds
+[2022-11-07T08:20:00.648+0000] {processor.py:156} INFO - Started process (PID=23811) to work on /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:20:00.650+0000] {processor.py:758} INFO - Processing file /home/centos/airflow/dags/inferenceworkflow.py for tasks to queue
+[2022-11-07T08:20:00.651+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:20:00.650+0000] {dagbag.py:525} INFO - Filling up the DagBag from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:20:02.118+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:20:02.117+0000] {dagbag.py:330} ERROR - Failed to import: /home/centos/airflow/dags/inferenceworkflow.py
+Traceback (most recent call last):
+  File "/home/centos/menv/lib/python3.7/site-packages/airflow/models/dagbag.py", line 326, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/centos/airflow/dags/inferenceworkflow.py", line 82, in <module>
+    python_callable = loadAndVectorize,
+NameError: name 'loadAndVectorize' is not defined
+[2022-11-07T08:20:02.118+0000] {processor.py:770} WARNING - No viable dags retrieved from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:20:02.375+0000] {processor.py:178} INFO - Processing /home/centos/airflow/dags/inferenceworkflow.py took 1.732 seconds
+[2022-11-07T08:20:33.035+0000] {processor.py:156} INFO - Started process (PID=24197) to work on /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:20:33.039+0000] {processor.py:758} INFO - Processing file /home/centos/airflow/dags/inferenceworkflow.py for tasks to queue
+[2022-11-07T08:20:33.040+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:20:33.040+0000] {dagbag.py:525} INFO - Filling up the DagBag from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:20:34.093+0000] {logging_mixin.py:117} INFO - [2022-11-07T08:20:34.091+0000] {dagbag.py:330} ERROR - Failed to import: /home/centos/airflow/dags/inferenceworkflow.py
+Traceback (most recent call last):
+  File "/home/centos/menv/lib/python3.7/site-packages/airflow/models/dagbag.py", line 326, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 728, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/home/centos/airflow/dags/inferenceworkflow.py", line 82, in <module>
+    python_callable = loadAndVectorize,
+NameError: name 'loadAndVectorize' is not defined
+[2022-11-07T08:20:34.103+0000] {processor.py:770} WARNING - No viable dags retrieved from /home/centos/airflow/dags/inferenceworkflow.py
+[2022-11-07T08:20:34.177+0000] {processor.py:178} INFO - Processing /home/centos/airflow/dags/inferenceworkflow.py took 1.146 seconds
