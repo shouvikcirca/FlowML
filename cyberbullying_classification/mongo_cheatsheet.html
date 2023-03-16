@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .editorCode
+        {
+            border:1px solid black;
+            background-color: black;
+            color: lightblue;
+            width:50%;
+            padding:20px;
+        }
+
+        .terminalCode
+        {
+            background-color: gray;
+            color: black;
+            width:50%;
+            padding:20px;
+        }
+
+        .text
+        {
+            border: 1px solid black;
+            width:50%;
+            padding:10px;
+        }
+
+    </style>
+</head>
+<body>
+     
+    <h1>Mongo shell</h1>
+    <br>
+    <div class="text">
+        Getting the ids of all documents
+    </div>
+    <div class="terminalCode">
+        a = db.trainingdata.distinct('_id')<br>
+    </div>
+    <div class="text">
+        Getting the keys of the document with the specified _id
+    </div>
+    <div class="terminalCode">
+        Object.keys(db.trainingdata.findOne({_id: a}))
+    </div>
+    <div class="text">
+        Getting a specified key's value for a document
+    </div>
+    <div class="terminalCode">
+        db.users.findOne({"_id": ObjectId("61c9e2891db6f17a8ba54e13")}).email
+    </div>
+        
+
+</body>
+</html>
