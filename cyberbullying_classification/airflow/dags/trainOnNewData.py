@@ -68,21 +68,20 @@ def trainAgain(**context):
 	preInsertionData = collection.update_one({"trainingData": {'$exists': True}}, {'$set': {'trainingData':numberofTrainingSamples }})
 	print('Updated dataCounts')	
 
-
 def getModel(**context):
-	metric_to_use = 'trainAccuracy'
+	metric_to_use = 'valLoss'
 	experimentName = context['task_instance'].xcom_pull(task_ids="retrainornot", key="experimentName")
 	client = MlflowClient()
 	exp = client.get_experiment_by_name(experimentName)
 	runs = mlflow.list_run_infos(exp.experiment_id)
 	runid = None
 	runidToUse = None
-	bestMetricValue = -float('inf')
+	bestMetricValue = float('inf')
 	for i in runs:
 		runid = i.run_id
 		run = client.get_run(runid)
 		curr_run_metric = run.data.metrics[metric_to_use]
-		if curr_run_metric > bestMetricValue:
+		if curr_run_metric < bestMetricValue:
 			bestMetricValue = curr_run_metric
 			runidToUse = runid
 	
@@ -119,11 +118,32 @@ def deploynew(**context):
 	p1 = subprocess.run("sudo fuser -k 5004/tcp", shell = True, capture_output = True, text = True)
 	print("Deployment terminated")
 
-	# Deploy new 
+	client = MlflowClient()
+	records = collection.find({})[0]
+
+
+	# Get version of existing model. This is required for deleting the existing model
+	mv = client.search_model_versions("name = '{}'".format('Alpha_{}'.format(records['cyberbullying_classification'])))
+
+	# Delete existing
+	client.delete_model_version(name = 'Alpha_{}'.format(records['cyberbullying_classification']), version = str(dict(mv[0])['version']))
+	print('Deleted currently deployed model')
+
+	# Register new model
+	r = mlflow.register_model("s3://mlflow/1/{}/artifacts/artifact_{}".format(bestModel, bestModel), 'Alpha_{}'.format(bestModel))
+
+	# Get the version of new model
+	mv = client.search_model_versions("name = '{}'".format('Alpha_{}'.format(records['cyberbullying_classification'])))
+
+	# Stage the new model
+	client.transition_model_version_stage(name='Alpha_{}'.format(bestModel), stage='Staging', version=int(dict(mv[0])['version']))
+	print('Registered new best model')
+
+	# command to deploy new model
 	cmdString = "nohup mlflow models serve -m 'models:/{}_{}/Staging' -h 127.0.0.1 -p 5004 --env-manager=local &".format(experimentName, bestModel)
 
 	p2 = subprocess.run(cmdString, shell = True)
-	print("Deployment recreated")
+	print("Deployed new model")
 
 	# Change deployed model name in database
 	collection = db['deployedModels']

@@ -55,7 +55,7 @@ def runBaseRunner(experiment_name, learning_rate_start,learning_rate_end, vocab_
 	algo = BayesOptSearch(utility_kwargs={'kind':'ucb', 'kappa':2.5, 'xi':0.0})
 	#algo = ConcurrencyLimiter(algo, max_concurrent=4)
 
-	num_samples = 2
+	num_samples = 5
 
 	tuner = tune.Tuner(
 			partial(train, data_dir=experiment_name),
@@ -221,6 +221,9 @@ def train(config, data_dir):
 		print('-----------------')
 
 		mlflow.keras.log_model(keras_model = model_to_save, artifact_path='artifact_{}'.format(active_run.info.run_id), signature = signature)
+	
+		# Adding the model to registry
+		r = mlflow.register_model("s3://mlflow/1/{}/artifacts/artifact_{}".format(active_run.info.run_id, active_run.info.run_id), 'Alpha_{}'.format(active_run.info.run_id))
 		return {'val_loss':val_loss}
 
 
