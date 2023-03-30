@@ -12,6 +12,7 @@ import mlflow
 import subprocess
 import docker
 
+
 def get_experiments(**context):
 	connectionString = 'mongodb://root:password@localhost:27015/mlflowexperiments?authSource=admin'
 	client = MongoClient(connectionString)
@@ -27,6 +28,7 @@ def get_experiments(**context):
 		json.dump(res_list, f)
 	#context['task_instance'].xcom_push(key="unexecuted", value=res_list)
 	
+
 def get_experiment_to_run(**context):
 	# XCom pull
 	#res = context['task_instance'].xcom_pull(task_ids="getUnexecutedExperiments", key="unexecuted")
@@ -66,17 +68,17 @@ def getRanges(**context):
 	hyperparams = json.dumps(hyperparams)
 	context['task_instance'].xcom_push(key="hparams", value=hyperparams)
 
+
 def kickoffExperimentation(**context):
 	hyperparams = context['task_instance'].xcom_pull(task_ids="getExperimentHpRanges", key="hparams")
 	hyperparams = json.loads(hyperparams)
-	print('Kickoff Experimentation')
-	print(hyperparams)
 
 	_ = mlflow.create_experiment('BaseExperiment')
 	client = MlflowClient()
 	main_exp_id = mlflow.get_experiment_by_name('BaseExperiment').experiment_id
 	run = client.create_run(main_exp_id)#, tags = {"dataPath":hyperparams["dataPath"]})
 	mlflow.run(run_id = run.info.run_id, uri = '.', entry_point = "ht", use_conda = False, parameters = hyperparams)
+
 
 def getModel(**context):
 	metric_to_use = 'trainAccuracy'
@@ -98,6 +100,7 @@ def getModel(**context):
 	print('Retrieved best runid')
 	context['task_instance'].xcom_push(key="bestRun", value = runidToUse)
 
+
 def deployBestModel(**context):
 	experimentName = context['task_instance'].xcom_pull(task_ids="retrieveExperimentToExecute", key="exptoexecute")
 	runid = context['task_instance'].xcom_pull(task_ids="getBestModel", key="bestRun")
@@ -111,32 +114,16 @@ def deployBestModel(**context):
 			stage='Staging'
 	)
 
-def modelServing(**context):
-	print('Initiating Serving')
+def modelServing():
 	experimentName = context['task_instance'].xcom_pull(task_ids="retrieveExperimentToExecute", key="exptoexecute")
 	runid = context['task_instance'].xcom_pull(task_ids="getBestModel", key="bestRun")
 	model_name = '{}_{}'.format(experimentName, runid)
 
-
-	cmdString = "nohup mlflow models serve -m 'models:/{}_{}/Staging' -h 127.0.0.1 -p 5004 --env-manager=local &".format(experimentName, runid)
-	p2 = subprocess.run(cmdString, shell = True)
-	print("Deployment created")
-
-
-	connectionString = 'mongodb://root:password@localhost:27015/mlflowexperiments?authSource=admin'
-	dbClient = MongoClient(connectionString)
-	db = dbClient['mlflowexperiments']
-	collection = db['deployedModels']
-	records = collection.find({})[0]
-	collection.update_one({"_id":records['_id']},{'$set':{'cyberbullying_classification': str(runid)}})
-	print("Deployed model updated in database")
-	
-	"""
 	cmdString = 'mlflow models serve -m "models:/{}/Staging" -h 127.0.0.1 -p 5004 --env-manager=local'.format(model_name)
 	p1 = subprocess.run(cmdString, shell = True, capture_output = True, text = True)
 	print(p1.stdout)
 	print('Maybe it works')
-	"""
+
 
 dag = DAG(
 		dag_id = "trainanddeploy",
@@ -187,10 +174,12 @@ registerAndStageModel = PythonOperator(
 		dag=dag
 )
 
+
 serveModel = PythonOperator(
 		task_id='serveModel',
 		python_callable = modelServing,
 		dag=dag
 )
+
 
 getUnexecutedExperiments >> retrieveExperimentToExecute >> createMlflowExperiment >> getExperimentHpRanges >> kickOffTuning >> getBestModel >> registerAndStageModel >> serveModel
