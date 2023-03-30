@@ -35,7 +35,6 @@ def checkRetrainingThreshold(**context):
 	else:
 		return "counterror"
 
-
 def countErrorFlow(**context):
 	print("Error: New Training set count less than existing data count")
 
@@ -54,10 +53,21 @@ def trainAgain(**context):
 	hyperparams = collection.find({"experiment_name":experimentName})[0]
 	popped  = hyperparams.pop("_id", None)
 
+	client = MlflowClient()
 	main_exp_id = mlflow.get_experiment_by_name('BaseExperiment').experiment_id
 	
 	runid = mlflow.list_run_infos(main_exp_id)[0].run_uuid
 	mlflow.run(run_id = runid, uri = '.', entry_point = "ht", use_conda = False, parameters = hyperparams)
+
+	# Fetching samples to count how many exist	
+	collection = db['trainingdata']
+	numberofTrainingSamples = len(collection.find({"comments": {'$exists': True}})[0]['comments'])
+
+	# Data counts has to be updated after retraining.
+	collection = db['dataCounts']
+	preInsertionData = collection.update_one({"trainingData": {'$exists': True}}, {'$set': {'trainingData':numberofTrainingSamples }})
+	print('Updated dataCounts')	
+
 
 def getModel(**context):
 	metric_to_use = 'trainAccuracy'
@@ -91,9 +101,10 @@ def bestmodelchanged(**context):
 	fetchedObject = collection.find({"experimentname": "Alpha"})[0]
 	previousBestRun = fetchedObject[fetchedObject['task']]
 
-	if  previousBestRun != bestModel:
+	if str(previousBestRun) != str(bestModel):
 		return "deploynewmodel"
-	return "samemodelremains"
+	else:
+		return "samemodelremains"
 
 def deploynew(**context):
 	connectionString = 'mongodb://root:password@localhost:27015/mlflowexperiments?authSource=admin'
@@ -162,11 +173,6 @@ getbestmodel = PythonOperator(
 		dag = dag
 )
 
-redeploy = PythonOperator(
-		task_id = "redeploy",
-		python_callable = bestmodelchanged,
-		dag = dag
-)
 
 deploynewmodel = PythonOperator(
 		task_id = "deploynewmodel",
@@ -180,8 +186,15 @@ samemodelremains = PythonOperator(
 		dag = dag
 )
 
-retrainornot >> [flowexit, initiateTraining, counterror]
-initiateTraining >> getbestmodel >> redeploy
-redeploy  >> [deploynewmodel, samemodelremains]
 
+redeploy = PythonOperator(
+		task_id = "redeploy",
+		python_callable = bestmodelchanged,
+		dag = dag
+)
+
+
+retrainornot >> [flowexit, initiateTraining, counterror]
+initiateTraining >> getbestmodel >> redeploy >> [deploynewmodel, samemodelremains]
+#redeploy >> [deploynewmodel, samemodelremains]
 

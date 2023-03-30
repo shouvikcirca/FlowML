@@ -55,7 +55,13 @@
     <div class="terminalCode">
         db.users.findOne({"_id": ObjectId("61c9e2891db6f17a8ba54e13")}).email
     </div>
-        
+    <div class="text">
+        Updating a key's value in a collection
+    </div>
+    <div class="terminalCode">
+        db.dataCounts.updateOne({"experimentName":"Alpha"},{$set:{"trainingData":5687}})    
+    </div>
 
+    
 </body>
 </html>

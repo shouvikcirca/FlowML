@@ -13,14 +13,14 @@ from mlflow.models.signature import infer_signature
 from ray import tune
 from ray.tune.search.bayesopt import BayesOptSearch
 from functools import partial
+from pymongo import MongoClient
 
 mlflow.set_tracking_uri('http://localhost:5000')
 os.environ['MLFLOW_TRACKING_URI'] = 'postgresql+psycopg2://postgres:password@localhost:5432/mlflowdb'
-os.environ['MLFLOW_S3_ENDPOINT_URL'] =  'http://10.180.146.26:9000'
+os.environ['MLFLOW_S3_ENDPOINT_URL'] =  'http://10.180.146.63:9000'
 os.environ['AWS_ACCESS_KEY_ID'] = 'admin'
 os.environ['AWS_SECRET_ACCESS_KEY'] = 'password'
 #mlflow.keras.autolog(log_models = False)
-
 
 @click.command()
 @click.option("--experiment-name", default='default', type=str)
@@ -68,10 +68,8 @@ def runBaseRunner(experiment_name, learning_rate_start,learning_rate_end, vocab_
 			param_space=search_space
 			)
 
-	
 	results = tuner.fit()
 	print(results.get_best_result(metric='val_loss', mode='min').config)
-
 
 def returnExperimentName():
 	return thisExperimentName # global variable declared at the top and assigned in 'runBaseRunner()'
@@ -92,7 +90,7 @@ class ModelBuilder:
 			tf.keras.layers.Embedding(self.vocab_length, self.embedding_dim, input_length=self.max_length),
 			tf.keras.layers.GlobalAveragePooling1D(),
 			tf.keras.layers.Dense(6, activation='relu'),
-			tf.keras.layers.Dense(4, activation='softmax')
+			tf.keras.layers.Dense(5, activation='softmax')
 		])
 
 		model.compile(
@@ -102,32 +100,20 @@ class ModelBuilder:
 		)
 		return model
 
-
-
 def extractor(filePath):
-	print('-----')
-	print(filePath)
-	print(os.listdir(filePath))
-	print('comment extractor was hit')
-	files = [i for i in os.listdir(filePath) if '.txt' in i] # Only .txt files contain data
-	print('-----')
-	print(files)
-	print('-----')
-	comments = []
-	targets = []
-	for f in files:
-		with open(filePath+f, 'r') as r:
-			s = r.read().split('\n')
-			s = [i.split('\t') for i in s]
-			comments.extend(s)	
+	print('Extracted comments and targets')
 
-	targets = [int(item[0]) for item in comments if len(item) == 2]	
-	comments = [item[1] for item in comments if len(item) == 2]
+	connectionString = 'mongodb://root:password@localhost:27015/mlflowexperiments?authSource=admin'
+	dbClient = MongoClient(connectionString)
+	db = dbClient['mlflowexperiments']
+	collection = db['trainingdata']
+	existingData = collection.find({"comments": {'$exists': True}})[0]
+	
+	comments = existingData['comments']
+	targets = existingData['targets']
 	return comments, targets
 
-
 def train(config, data_dir):
-
 	styleMap = {0:'post',1:'pre'}
 
 	learning_rate = config['learning_rate']
@@ -161,7 +147,6 @@ def train(config, data_dir):
 	client = MlflowClient()
 	exp_id = mlflow.get_experiment_by_name(data_dir).experiment_id 
 
-
 	run = client.create_run(exp_id)#, tags = {"dataPath":hyperparams["dataPath"]})
 
 	val_accuracy = -float('inf')
@@ -182,7 +167,7 @@ def train(config, data_dir):
 
 		#Converting to numpy arrays
 		comments = np.array(comments)
-		targets = [i-1 for i in targets]
+		#targets = [i-1 for i in targets]
 		targets = np.array(targets)
 
 		print('comments: {}'.format(comments.shape))
@@ -209,8 +194,8 @@ def train(config, data_dir):
 			testSequences = tokenizer.texts_to_sequences(testX)
 			paddedTestSequences = pad_sequences(testSequences, padding=seq_padding_style, truncating=seq_truncating_style, maxlen=max_length)
 
-			trainY = tf.keras.utils.to_categorical(trainY, 4)
-			testY = tf.keras.utils.to_categorical(testY, 4)
+			trainY = tf.keras.utils.to_categorical(trainY, 5)
+			testY = tf.keras.utils.to_categorical(testY, 5)
 
 			# Defining signature for the model
 			signature = infer_signature(paddedTestSequences , testY)
@@ -230,23 +215,13 @@ def train(config, data_dir):
 		client.log_metric(run_id = active_run.info.run_id, key='valAccuracy', value=val_accuracy)
 		client.log_metric(run_id = active_run.info.run_id, key='valLoss', value=val_loss)
 		client.set_terminated(active_run.info.run_id)
+
+		print('-----------------')
+		print('valLoss: {}'.format(val_loss))
+		print('-----------------')
+
 		mlflow.keras.log_model(keras_model = model_to_save, artifact_path='artifact_{}'.format(active_run.info.run_id), signature = signature)
 		return {'val_loss':val_loss}
-
-def extractor(filePath):
-	filePath+='/'
-	files = [i for i in os.listdir(filePath) if '.txt' in i] # Only .txt files contain data
-	comments = []
-	targets = []
-	for f in files:
-		with open(filePath+f, 'r') as r:
-			s = r.read().split('\n')
-			s = [i.split('\t') for i in s]
-			comments.extend(s)	
-
-	targets = [int(item[0]) for item in comments if len(item) == 2]	
-	comments = [item[1] for item in comments if len(item) == 2]
-	return comments, targets
 
 
 if __name__ == "__main__":
