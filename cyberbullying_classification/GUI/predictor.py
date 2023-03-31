@@ -54,7 +54,8 @@ def getPredictions(enteredText):
 	p = np.array(prediction.json())
 
 	# p[0] contains the probability scores
-	return p[0]
+	#return p[0]
+	return p
 
 def getCategory(preds):
 	categories = {0:"Obscene",1:"Insulting",2:"Hateful",3:"Bullying"}
@@ -71,8 +72,8 @@ def predictClick():
 	preds = getPredictions(enteredText)
 	
 	# If all the probability scores are below 0.8, sample is chosen for Active Learning
-	if not (preds>=0.8).sum():
-		sampleForActiveLearning(enteredText)
+	#if not (preds>=0.8).sum():
+	sampleForActiveLearning(enteredText)
 	
 	# Temporary code to introduce variations in results. Done temporarily because model returns same prediction for all inputs	
 	randomNumber = np.random.random()

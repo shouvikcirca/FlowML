@@ -106,7 +106,7 @@ def deployBestModel(**context):
 	client.transition_model_version_stage(
 			name=model_name,
 			version=1,
-			stage='Staging'
+			stage='Production'
 	)
 
 def modelServing(**context):
@@ -115,7 +115,7 @@ def modelServing(**context):
 	runid = context['task_instance'].xcom_pull(task_ids="getBestModel", key="bestRun")
 	model_name = '{}_{}'.format(experimentName, runid)
 
-	cmdString = "nohup mlflow models serve -m 'models:/{}_{}/Staging' -h 127.0.0.1 -p 5004 --env-manager=local &".format(experimentName, runid)
+	cmdString = "nohup mlflow models serve -m 'models:/{}_{}/Production' -h 127.0.0.1 -p 5004 --env-manager=local &".format(experimentName, runid)
 	p2 = subprocess.run(cmdString, shell = True)
 	print("Deployment created")
 

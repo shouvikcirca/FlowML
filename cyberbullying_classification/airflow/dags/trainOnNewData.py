@@ -122,25 +122,38 @@ def deploynew(**context):
 	records = collection.find({})[0]
 
 
+	oldmodel = records['cyberbullying_classification']
+
+	if oldmodel == bestModel:
+		return
+
+
 	# Get version of existing model. This is required for deleting the existing model
 	mv = client.search_model_versions("name = '{}'".format('Alpha_{}'.format(records['cyberbullying_classification'])))
 
 	# Delete existing
-	client.delete_model_version(name = 'Alpha_{}'.format(records['cyberbullying_classification']), version = str(dict(mv[0])['version']))
-	print('Deleted currently deployed model')
+	#client.delete_model_version(name = 'Alpha_{}'.format(records['cyberbullying_classification']), version = str(dict(mv[0])['version']))
+	client.transition_model_version_stage(name='Alpha_{}'.format(records['cyberbullying_classification']), stage='Staging', version=str(dict(mv[0])['version']))
+	print('Archived currently deployed model')
 
 	# Register new model
-	r = mlflow.register_model("s3://mlflow/1/{}/artifacts/artifact_{}".format(bestModel, bestModel), 'Alpha_{}'.format(bestModel))
+	#r = mlflow.register_model("s3://mlflow/1/{}/artifacts/artifact_{}".format(bestModel, bestModel), 'Alpha_{}'.format(bestModel))
 
 	# Get the version of new model
-	mv = client.search_model_versions("name = '{}'".format('Alpha_{}'.format(records['cyberbullying_classification'])))
+	mv = client.search_model_versions("name = '{}'".format('Alpha_{}'.format(bestModel)))
 
-	# Stage the new model
-	client.transition_model_version_stage(name='Alpha_{}'.format(bestModel), stage='Staging', version=int(dict(mv[0])['version']))
+	# Since there may be multiple versions, we want to pickup the latest one
+	maxVersion = -float('inf')
+	for i in mv:
+		maxVersion = max(maxVersion, int(dict(i)['version']))
+
+
+	# Deploy the new model in Production
+	client.transition_model_version_stage(name='Alpha_{}'.format(bestModel), stage='Production', version=maxVersion)
 	print('Registered new best model')
 
 	# command to deploy new model
-	cmdString = "nohup mlflow models serve -m 'models:/{}_{}/Staging' -h 127.0.0.1 -p 5004 --env-manager=local &".format(experimentName, bestModel)
+	cmdString = "nohup mlflow models serve -m 'models:/{}_{}/Production' -h 127.0.0.1 -p 5004 --env-manager=local &".format(experimentName, bestModel)
 
 	p2 = subprocess.run(cmdString, shell = True)
 	print("Deployed new model")

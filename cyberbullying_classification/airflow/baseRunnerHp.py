@@ -224,6 +224,11 @@ def train(config, data_dir):
 	
 		# Adding the model to registry
 		r = mlflow.register_model("s3://mlflow/1/{}/artifacts/artifact_{}".format(active_run.info.run_id, active_run.info.run_id), 'Alpha_{}'.format(active_run.info.run_id))
+
+		# Staging the model
+		client.transition_model_version_stage(name='Alpha_{}'.format(active_run.info.run_id), stage='Staging', version=1)
+
+
 		return {'val_loss':val_loss}
 
 

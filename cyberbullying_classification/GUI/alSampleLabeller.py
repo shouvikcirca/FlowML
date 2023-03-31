@@ -60,6 +60,9 @@ def getClickValues():
 		collection.update_one({"_id":data[0]['_id']},{'$set':{'data': []}})
 		print("No Active Learning samples remaining")
 
+
+
+
 def getUnlabelledSamples():
 	collection = db['activelearning']
 	data = collection.find({"data": {'$exists': True}})
